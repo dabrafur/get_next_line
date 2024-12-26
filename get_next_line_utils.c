@@ -24,12 +24,12 @@ t_list	*find_last_node(t_list *list)
 {
 	if (NULL == list)
 		return (NULL);
-	while (list->next)
+	while (list->next != NULL)
 		list = list->next;
 	return (list);
 }
 
-void    copy_str(t_list *list, char *str)
+void    cp_strto(t_list *list, char *str)
 {
     int i;
     int k;
