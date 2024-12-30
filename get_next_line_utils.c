@@ -1,106 +1,138 @@
 #include "get_next_line.h"
+//#include <stdio.h>
 
-int	found_newline(t_list *list)
+size_t ft_strlen(const char *str) //retorna comprimento de str
 {
-	int	i;
-
-	if (NULL == list)
-		return (0);
-	while (list)
-	{
-		i = 0;
-		while (list->str_buf[i] && i < BUFFER_SIZE)
-		{
-			if (list->str_buf[i] == '\n')
-				return (1);
-			++i;
-		}
-		list = list->next;
-	}
-	return (0);
-}
-
-t_list	*find_last_node(t_list *list)
-{
-	if (NULL == list)
-		return (NULL);
-	while (list->next != NULL)
-		list = list->next;
-	return (list);
-}
-
-void    cp_strto(t_list *list, char *str)
-{
-    int i;
-    int k;
-
-    if (NULL == list)
-        return ;
-    k = 0;
-    while (list)
-    {
-        i = 0;
-        while (list->str_buf[i])
-        {
-            if (list->str_buf[i] == '\n')
-            {
-                str[k++] = '\n';
-                str[k] = '\0';
-                return ;
-            }
-            str[k++] = list->str_buf[i++];
-        }
-        list = list->next;
-    }
-    str[k] = '\0';
-}
-
-int len_to_newline(t_list *list)
-{
-    int i;
     int len;
 
-    if (NULL == list)
-        return (0);
-    
     len = 0;
-    while (list) // list != NULL
-    {
-        i = 0;
-        while (list->str_buf[i])
-        {
-            if (list->str_buf[i] == '\n')
-            {
-                ++len;
-                return (len);
-            }
-            ++i;
-            ++len;
-        }
-        list = list->next;
-    }
+    while(str[len])
+        len++;
     return (len);
 }
 
-void    dealloc(t_list **list, t_list *clean_node, char *buf)
+char *ft_strchr(const char *s, int c) // retorna a string a partir da primeira ocorrência de c
 {
-    t_list *tmp;
+    while (*s)
+    {
+        if (*s == (char)c)
+            return ((char *)s);
+        s++;
+    }
+    if (c == '\0')
+        return ((char *)s);
+    return (NULL);
+}
 
-    if (NULL == *list)
-        return ;
-    while (*list)
+char *ft_strdup(const char *s1) //retorna uma cópa de s1
+{
+    char *s2;
+    int i;
+
+    s2 = (char *)malloc(sizeof(char) * (ft_strlen(s1) + 1));
+    if (!s2)
+        return NULL;
+    i = 0;
+    while (*s1)
     {
-        tmp = (*list)->next;
-        free((*list)->str_buf);
-        free(*list);
-        *list = tmp;
+        s2[i] = s1[i];
+        i++;
     }
-    *list = NULL;
-    if (clean_node->str_buf[0])
-        *list = clean_node;
-    else
+
+    s2[i] = '\0';
+    return (s2);
+}
+
+char *ft_strjoin(char const *s1, char const *s2) //coloca s2 no final de s1
+{
+    char *s3;
+    size_t i;
+    size_t j;
+
+    s3 = (char *)malloc(sizeof (char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
+    if (!s3)
+        return (NULL);
+    
+    i = 0;
+    while (s1[i])
     {
-        free(buf);
-        free(clean_node);
+        s3[i] = s1[i];
+        i++;
     }
+    j = 0;
+    while (s2[j])
+    {
+        s3[i + j] = s2[j];
+        j++;
+    }
+    s3[i + j] = '\0';
+    return (s3);
+}
+
+char *ft_substr(char const *s, unsigned int start, size_t len) //retornar substrind de s que começa em start e tem len de comprimento.
+{
+    char *sub;
+    size_t i;
+
+    if (!s)
+        return (NULL);
+    if ((size_t)start >= ft_strlen(s))
+        return (ft_strdup(""));
+    sub = (char *)malloc(sizeof (char) * (len + 1));
+    if (!sub)
+        return (NULL);
+    i = 0;
+    while (s[start + i] && i < len)
+    {
+        sub[i] = s[start + i];
+        i++;
+    }
+    sub[i] = '\0';
+    return (sub);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main (void)
+{
+     // Teste com string normal
+    char *str1 = ft_strdup("Hello, World!");
+    printf("\nTeste string normal:\n");
+    printf("String duplicada: %s\n", str1);
+    free(str1);
+    
+    // Teste com string vazia
+    char *str2 = ft_strdup("");
+    printf("\nTeste string vazia:\n");
+    printf("String duplicada: %s\n", str2);
+    free(str2);
+    
+    // Teste de independência das strings
+    char *original = ft_strdup("Teste");
+    char *copy = ft_strdup(original);
+    
+    printf("\nTeste de independência:\n");
+    printf("Original antes: %s\n", original);
+    printf("Cópia antes: %s\n", copy);
+    
+    // Modifica a string original
+    original[0] = 'M';
+    
+    printf("Original depois: %s\n", original);
+    printf("Cópia depois: %s\n", copy);
+    
+    free(original);
+    free(copy);
+
+    return (0);
 }
