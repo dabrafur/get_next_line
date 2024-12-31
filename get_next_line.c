@@ -21,7 +21,7 @@ static char	*read_line(int fd, char	*buf)
 	{
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (free_buff(buf, read_buf));
+			return (free_buf(buf, read_buf));
 		read_buf[bytes_read] = '\0';
 		temp_line = buf;
 		buf = ft_strjoin(temp_line, read_buf);
