@@ -6,7 +6,7 @@
 /*   By: deabraha <deabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 09:38:58 by deabraha          #+#    #+#             */
-/*   Updated: 2024/12/31 09:39:02 by deabraha         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:04:06 by deabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static char	*read_line(int fd, char	*buf)
 
 static char	*cut_line(char *buf)
 {
-	int		i;
 	char	*new_line;
+	int		i;
 
 	i = 0;
 	if (!buf[i])
@@ -61,8 +61,8 @@ static char	*cut_line(char *buf)
 
 static char	*new_line(char *buf)
 {
-	int		i;
 	char	*temp;
+	int		i;
 
 	i = 0;
 	while (buf[i] != '\n' && buf[i] != '\0')
@@ -79,8 +79,8 @@ static char	*new_line(char *buf)
 
 char	*get_next_line(int fd)
 {
-	static char	*buf;
 	char		*line;
+	static char	*buf;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);

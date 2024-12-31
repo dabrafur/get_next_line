@@ -6,7 +6,7 @@
 /*   By: deabraha <deabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 09:52:18 by deabraha          #+#    #+#             */
-/*   Updated: 2024/12/31 09:54:09 by deabraha         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:25:44 by deabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	char	*line;
 	int		fd;
 
-	fd = open("text.txt". O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening file");
