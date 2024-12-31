@@ -6,7 +6,7 @@
 /*   By: deabraha <deabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 09:38:58 by deabraha          #+#    #+#             */
-/*   Updated: 2024/12/31 10:04:06 by deabraha         ###   ########.fr       */
+/*   Updated: 2024/12/31 10:58:39 by deabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static char	*read_line(int fd, char	*buf)
 	return (buf);
 }
 
-static char	*cut_line(char *buf)
+static char	*split_line(char *buf)
 {
-	char	*new_line;
+	char	*split_line;
 	int		i;
 
 	i = 0;
@@ -55,11 +55,11 @@ static char	*cut_line(char *buf)
 		return (NULL);
 	while (buf[i] != '\n' && buf[i] != '\0')
 		i++;
-	new_line = ft_substr(buf, 0, i + 1);
-	return (new_line);
+	split_line = ft_substr(buf, 0, i + 1);
+	return (split_line);
 }
 
-static char	*new_line(char *buf)
+static char	*assemble_new_line(char *buf)
 {
 	char	*temp;
 	int		i;
@@ -79,7 +79,7 @@ static char	*new_line(char *buf)
 
 char	*get_next_line(int fd)
 {
-	char		*line;
+	char		*next_line;
 	static char	*buf;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 		free(buf);
 		return (NULL);
 	}
-	line = cut_line(buf);
-	buf = new_line(buf);
-	return (line);
+	next_line = split_line(buf);
+	buf = assemble_new_line(buf);
+	return (next_line);
 }
