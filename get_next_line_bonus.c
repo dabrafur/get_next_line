@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deabraha <deabraha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/31 09:38:58 by deabraha          #+#    #+#             */
-/*   Updated: 2024/12/31 11:25:08 by deabraha         ###   ########.fr       */
+/*   Created: 2024/12/31 11:42:48 by deabraha          #+#    #+#             */
+/*   Updated: 2024/12/31 11:46:55 by deabraha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*free_buf(char *buf, char *read_buf)
 {
@@ -82,17 +82,17 @@ char	*get_next_line(int fd)
 	char		*next_line;
 	static char	*buf[1024];
 
-	if (fd < 0 || fd > 1024|| BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!buf[fd])
-		buf[fd] = ft_strdup("");
-	buf[fd] = read_line(fd, buf[fd]);
-	if (!buf[fd])
+	if (!buf [fd])
+		buf [fd] = ft_strdup("");
+	buf[fd] = read_line(fd, buf [fd]);
+	if (!buf [fd])
 	{
-		free(buf[fd]);
+		free(buf [fd]);
 		return (NULL);
 	}
-	next_line = split_line(buf[fd]);
-	buf[fd] = assemble_new_line(buf[fd]);
+	next_line = split_line(buf [fd]);
+	buf [fd] = assemble_new_line(buf [fd]);
 	return (next_line);
 }
